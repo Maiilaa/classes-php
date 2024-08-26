@@ -6,5 +6,5 @@ class User{
     public $firstname;
     public $lastname;
     
-    
+    blablabla
 }
