@@ -1,8 +1,61 @@
 <?php
 require_once 'User.php';
+session_start();
 
-// Connection to database
+// Connexion à la base de données via la classe User
 $user = new User('localhost', 'root', '', 'classes');
+
+// Traitement des actions (création, lecture, mise à jour, suppression)
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['create'])) {
+        // Créer un utilisateur
+        $login = $_POST['login'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+
+        // Hashage du mot de passe pour la sécurité
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        // Création de l'utilisateur
+        $message = $user->create($login, $passwordHash, $email, $firstname, $lastname);
+        echo "<p>$message</p>";
+    }
+
+    if (isset($_POST['update'])) {
+        // Mise à jour d'un utilisateur
+        $id = $_POST['id'];
+        $login = $_POST['login'];
+        $email = $_POST['email'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+
+        $message = $user->update($id, $login, $email, $firstname, $lastname);
+        echo "<p>$message</p>";
+    }
+
+    if (isset($_POST['delete'])) {
+        // Suppression d'un utilisateur
+        $id = $_POST['id'];
+        $message = $user->delete($id);
+        echo "<p>$message</p>";
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['read'])) {
+    // Lire les informations d'un utilisateur
+    $id = $_GET['id'];
+    $result = $user->read($id);
+    if (is_array($result)) {
+        echo "<h3>Informations de l'utilisateur</h3>";
+        echo "<pre>";
+        print_r($result);
+        echo "</pre>";
+    } else {
+        echo "<p>$result</p>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +67,9 @@ $user = new User('localhost', 'root', '', 'classes');
 </head>
 <body>
 
-<!-- Form for create an user-->
+<h2>Gestion des Utilisateurs</h2>
+
+<!-- Formulaire de création d'utilisateur -->
 <form action="index.php" method="POST">
     <h3>Créer un utilisateur</h3>
     <label for="login">Login:</label>
@@ -35,21 +90,9 @@ $user = new User('localhost', 'root', '', 'classes');
     <input type="submit" name="create" value="Créer l'utilisateur">
 </form>
 
-<?php
-// Treatement for creation
-if (isset($_POST['create'])) {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
-    $email = $_POST['email'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    echo $user->create($login, $password, $email, $firstname, $lastname);
-}
-?>
-
 <hr>
 
-<!-- Form for read an user-->
+<!-- Formulaire de lecture d'utilisateur -->
 <form action="index.php" method="GET">
     <h3>Lire les informations d'un utilisateur</h3>
     <label for="id">ID de l'utilisateur:</label>
@@ -58,24 +101,9 @@ if (isset($_POST['create'])) {
     <input type="submit" name="read" value="Lire les informations">
 </form>
 
-<?php
-// Treatment for the reading
-if (isset($_GET['read'])) {
-    $id = $_GET['id'];
-    $result = $user->read($id);
-    if (is_array($result)) {
-        echo "<pre>";
-        print_r($result);
-        echo "</pre>";
-    } else {
-        echo $result;
-    }
-}
-?>
-
 <hr>
 
-<!-- Form for update an user -->
+<!-- Formulaire de mise à jour d'utilisateur -->
 <form action="index.php" method="POST">
     <h3>Mettre à jour un utilisateur</h3>
     <label for="id">ID de l'utilisateur:</label>
@@ -96,21 +124,9 @@ if (isset($_GET['read'])) {
     <input type="submit" name="update" value="Mettre à jour l'utilisateur">
 </form>
 
-<?php
-// Treatment for the update
-if (isset($_POST['update'])) {
-    $id = $_POST['id'];
-    $login = $_POST['login'];
-    $email = $_POST['email'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    echo $user->update($id, $login, $email, $firstname, $lastname);
-}
-?>
-
 <hr>
 
-<!-- Form for delete an user-->
+<!-- Formulaire de suppression d'utilisateur -->
 <form action="index.php" method="POST">
     <h3>Supprimer un utilisateur</h3>
     <label for="id">ID de l'utilisateur à supprimer:</label>
@@ -118,14 +134,6 @@ if (isset($_POST['update'])) {
 
     <input type="submit" name="delete" value="Supprimer l'utilisateur">
 </form>
-
-<?php
-// Treatment for delete
-if (isset($_POST['delete'])) {
-    $id = $_POST['id'];
-    echo $user->delete($id);
-}
-?>
 
 </body>
 </html>
