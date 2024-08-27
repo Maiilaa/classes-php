@@ -24,6 +24,9 @@ $userInfo = $userObj->read($_SESSION['user_id']);
     <title>Informations Utilisateur</title>
 </head>
 <body>
+    <header>
+        <?php include  '_header.php';?>
+    </header>
     <h2>Informations de l'utilisateur</h2>
     <p>Login: <?php echo htmlspecialchars($userInfo['login']); ?></p>
     <p>Email: <?php echo htmlspecialchars($userInfo['email']); ?></p>

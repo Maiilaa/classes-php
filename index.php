@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (isset($_POST['delete'])) {
         echo $userObj->delete($_POST['id']);
     }
+    
 }
 ?>
 <!DOCTYPE html>

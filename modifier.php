@@ -1,3 +1,14 @@
+<?php
+session_start();    
+include 'user.php';
+
+$localhost = "localhost";
+$user = "root";
+$password = "";
+$database = "classes";
+$userObj = new User($localhost, $user, $password, $database);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
