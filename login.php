@@ -1,12 +1,11 @@
 <?php
-session_start();
-
+session_start();    
+include 'user.php';
 
 $localhost = "localhost";
 $user = "root";
 $password = "";
 $database = "classes";
-
 $userObj = new User($localhost, $user, $password, $database);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

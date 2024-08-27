@@ -28,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <?php include  '_header.php';?>
-    </header>
-    
+    <?php include_once '_header.php'; ?>
+    <main>
+        <h1>Welcome to my Web Site</h1>
+    </main>
 </body>
 </html>

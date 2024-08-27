@@ -10,9 +10,11 @@
     <header>
             <ul>
                 <li class="headertitre"><a href="index.php">Accueil</a></li>
-                <li class="headertitre"><a href="User.php">Inscription</a></li>
+                <li class="headertitre"><a href="register.php">Inscription</a></li>
                 <li class="headertitre"><a href="login.php">Connexion</a></li>
+                <li class="headertitre"><a href="modifier.php">Modifier</a></li>
                 <li class="headertitre"><a href="infos.php">Infos</a></li>
+                <li class="headertitre"><a href=""></a></li>
             </ul>
         
     </header>
