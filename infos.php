@@ -1,13 +1,19 @@
 <?php
-session_start(); // Démarrer la session
+session_start();
+include 'user.php';
 
-// Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php"); // Rediriger vers la page de connexion si non connecté
-    exit;
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
 }
 
-$user = $_SESSION['user'];
+$localhost = "localhost";
+$user = "root";
+$password = "";
+$database = "classes";
+
+$userObj = new User($localhost, $user, $password, $database);
+$userInfo = $userObj->read($_SESSION['user_id']);
 ?>
 
 <!DOCTYPE html>
@@ -15,18 +21,14 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de bord</title>
+    <title>Informations Utilisateur</title>
 </head>
 <body>
-
-<h2>Bienvenue, <?php echo htmlspecialchars($user['firstname']); ?> !</h2>
-
-<p>Login : <?php echo htmlspecialchars($user['login']); ?></p>
-<p>Email : <?php echo htmlspecialchars($user['email']); ?></p>
-<p>Prénom : <?php echo htmlspecialchars($user['firstname']); ?></p>
-<p>Nom : <?php echo htmlspecialchars($user['lastname']); ?></p>
-
-<a href="logout.php">Se déconnecter</a>
-
+    <h2>Informations de l'utilisateur</h2>
+    <p>Login: <?php echo htmlspecialchars($userInfo['login']); ?></p>
+    <p>Email: <?php echo htmlspecialchars($userInfo['email']); ?></p>
+    <p>Prénom: <?php echo htmlspecialchars($userInfo['firstname']); ?></p>
+    <p>Nom: <?php echo htmlspecialchars($userInfo['lastname']); ?></p>
+    <a href="logout.php">Se déconnecter</a>
 </body>
 </html>

@@ -16,7 +16,7 @@ class User {
             die("Erreur de connexion à la base de données : " . $this->conn->connect_error);
         }
     }
-    
+
     // Méthode pour créer un utilisateur
     public function create($login, $password, $email, $firstname, $lastname) {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
@@ -48,7 +48,6 @@ class User {
 
     // Méthode pour connecter un utilisateur
     public function login($login, $password) {
-        // Requête pour vérifier le login
         $stmt = $this->conn->prepare("SELECT * FROM utilisateurs WHERE login = ?");
         $stmt->bind_param("s", $login);
         $stmt->execute();
@@ -57,9 +56,7 @@ class User {
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
 
-            // Vérifier si le mot de passe est correct
             if (password_verify($password, $user['password'])) {
-                // Enregistrer les informations de l'utilisateur dans la session
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['login'] = $user['login'];
@@ -78,8 +75,8 @@ class User {
     // Méthode pour déconnecter un utilisateur
     public function logout() {
         session_start();
-        session_unset(); // Supprime toutes les variables de session
-        session_destroy(); // Détruit la session
+        session_unset();
+        session_destroy();
         return "Vous avez été déconnecté.";
     }
 
@@ -109,9 +106,58 @@ class User {
         }
     }
 
-    // Fermeture de la connexion à la base de données
+    // Méthode pour obtenir les informations de l'utilisateur
+    public function getUserInfo() {
+        return [
+            'login' => $this->login,
+            'email' => $this->email,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname
+        ];
+    }
+
     public function __destruct() {
         $this->conn->close();
     }
 }
 ?>
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Utilisateur</title>
+</head>
+<body>
+    <header>
+        <?php include  '_header.php';?>
+    </header>
+    <main>
+        <h2>Gestion des Utilisateurs</h2>
+        <!-- Formulaire de création d'utilisateur -->
+        <form action="index.php" method="POST">
+            <h3>Créer un utilisateur</h3>
+            <label for="login">Login:</label>
+            <input type="text" id="login" name="login" required><br><br>
+
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+             <label for="firstname">Prénom:</label>
+            <input type="text" id="firstname" name="firstname" required><br><br>
+
+            <label for="lastname">Nom:</label>
+            <input type="text" id="lastname" name="lastname" required><br><br>
+
+            <input type="submit" name="create" value="Créer l'utilisateur">
+        </form>
+    </main>
+
+</body>
+</html>

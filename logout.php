@@ -1,7 +1,14 @@
 <?php
 session_start();
-session_unset(); // Supprimer toutes les variables de session
-session_destroy(); // Détruire la session
-header("Location: login.php"); // Redirection vers la page de connexion
-exit;
+include 'user.php';
+
+$localhost = "localhost";
+$user = "root";
+$password = "";
+$database = "classes";
+
+$userObj = new User($localhost, $user, $password, $database);
+echo $userObj->logout();
+
+header('Location: login.php');
 ?>
