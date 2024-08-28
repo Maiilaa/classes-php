@@ -86,11 +86,15 @@ class User {
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ssssi", $login, $email, $firstname, $lastname, $id);
 
-        if ($stmt->execute()) {
-            return "Utilisateur mis à jour avec succès.";
-        } else {
-            return "Erreur lors de la mise à jour de l'utilisateur : " . $this->conn->error;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Instanciation de la classe User
+            $user = new User('localhost', 'root', 'password', 'classes'); // Remplacez par vos valeurs de connexion
+        
+            // Récupérer l'action du formulaire
+            $action = $_POST['action'];
+            $message = "";  // Message à afficher après l'action
         }
+
     }
 
     // Méthode pour supprimer un utilisateur

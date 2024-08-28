@@ -14,7 +14,7 @@ $userObj = new User($localhost, $user, $password, $database);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Utilisateur</title>
+    <title>Classes</title>
 </head>
 <body>
     <header>
@@ -23,6 +23,7 @@ $userObj = new User($localhost, $user, $password, $database);
     <main>
         <h2>Modifier ou Supprimer</h2>
         <form action="index.php" method="POST">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
             <label for="login">Login:</label>
             <input type="text" id="login" name="login" required><br><br>
 
@@ -38,8 +39,8 @@ $userObj = new User($localhost, $user, $password, $database);
             <label for="lastname">Nom:</label>
             <input type="text" id="lastname" name="lastname" required><br><br>
 
-            <input type="submit" name="create" value="modifier">
-            <input type="submit" name="create" value="supprimer">
+            <input type="submit" name="update" value="modifier">
+            <input type="submit" name="delete" value="supprimer">
         </form>
     </main>
 
