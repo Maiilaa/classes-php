@@ -25,24 +25,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classes</title>
+    <link rel ="stylesheet" href="Assets/css/index.css">
 </head>
 <body>
     <header>
         <?php include  '_header.php';?>
     </header>
+    <main>
+        <h2>Connexion</h2>
+        <form action="login.php" method="POST">
+            <label for="login">Login :</label>
+            <input type="text" id="login" name="login" required><br><br>
 
-    <h2>Connexion</h2>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required><br><br>
 
-    <form action="login.php" method="POST">
-        <label for="login">Login :</label>
-        <input type="text" id="login" name="login" required><br><br>
-
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <input type="submit" name="login_submit" value="Se connecter">
-    </form>
-
+            <input type="submit" name="login_submit" value="Se connecter">
+        </form>
+    </main>
 </body>
 </html>
 

@@ -16,7 +16,6 @@
                 <li class="headertitre"><a href="infos.php">Infos</a></li>
                 <li class="headertitre"><a href=""></a></li>
             </ul>
-        
     </header>
 </body>
 </html>
