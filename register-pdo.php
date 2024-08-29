@@ -8,7 +8,7 @@
     <main>
         <h1>Inscription</h1>
         
-        <form method="POST" action="register.php">
+        <form method="POST" action="register-pdo.php">
             <label for="login">Login:</label>
             <input type="text" id="login" name="login" required><br>
             <label for="password">Mot de passe:</label>
@@ -21,7 +21,7 @@
             <input type="text" id="lastname" name="lastname" required><br>
             <input type="submit" value="S'inscrire">
         </form>
-        <p><a href="login.php">Déjà inscrit? Connectez-vous ici.</a></p>
+        <p><a href="login-pdo.php">Déjà inscrit? Connectez-vous ici.</a></p>
     </main>
 </body>
 </html>

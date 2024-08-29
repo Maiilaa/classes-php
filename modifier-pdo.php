@@ -25,7 +25,7 @@ session_start();
 //}
 
 // Récupérer l'utilisateur connecté depuis la base de données
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['id'];
 $user = new User($pdo);
 $user->connectById($user_id);
 
@@ -70,15 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" id="password" name="password">
         </div>
         <div>
-            <label for="email">Email</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email" >
         </div>
         <div>
-            <label for="firstname">Prénom</label>
+            <label for="firstname">Prénom:</label>
             <input type="text" id="firstname" name="firstname" >
         </div>
         <div>
-            <label for="lastname">Nom de famille</label>
+            <label for="lastname">Nom:</label>
             <input type="text" id="lastname" name="lastname" >
         </div>
         <button type="submit">Mettre à jour</button>
