@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classes</title>
-    <link rel ="stylesheet" href="Assets/css/index.css">
+    <link rel ="stylesheet" href="Assets/css/index.css?t=<?=time()?>">
 </head>
 <body>
     <?php include_once '_header.php'; ?>
