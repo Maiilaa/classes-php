@@ -68,7 +68,15 @@ class User {
         $this->lastname = $lastname;
         return true;
     }
+    
 
+    public function recordLogout() {
+        // Unset and destroy the session to log out the user
+        session_unset();
+        session_destroy();
+        
+        return "You have successfully logged out.";
+    }
     public function getId() {
         return $this->id;
     }
